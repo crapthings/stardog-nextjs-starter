@@ -1,0 +1,62 @@
+INSERT {
+    # 类
+    :User a owl:Class .
+
+    :Admin a owl:Class ;
+        rdfs:label "Administrator" ;
+        rdfs:subClassOf :User .
+
+    :Client a owl:Class ;
+        rdfs:label "Client" ;
+        rdfs:subClassOf :User .
+
+    :Permission a owl:Class .
+
+    # 属性
+
+    :username a owl:DatatypeProperty ;
+        a owl:FunctionalProperty .
+
+    :name a owl:DatatypeProperty .
+
+    # 表单
+    :userForm a :Form ;
+        :hasElement [
+            :hasInput [
+                :name "username" ;
+                :type "text"
+            ] ;
+            :hasInput [
+                :name "name" ;
+                :type "text"
+            ] ;
+            :hasInput [
+                :name "role" ;
+                :type "radio" ;
+                :hasOption ([
+                    :value "something1" ;
+                    :label "Administrator"
+                    ] [
+                    :value "something2" ;
+                    :label "Client"
+                    ])
+            ]
+        ] .
+
+
+    # 创建一些默认用户
+
+    ?crapthings
+        a :Client ;
+        :username "crapthings" ;
+        :name "zhang hong" .
+
+    ?admin
+        a :Admin ;
+        :username "admin" ;
+        :name "administrator" .
+}
+WHERE {
+    BIND(:user:crapthings as ?crapthings) .
+    BIND(:user:admin as ?admin) .
+}
